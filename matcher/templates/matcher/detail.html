@@ -1,0 +1,44 @@
+{% extends "matcher/base.html" %}
+
+{% block title %}{{ analysis.job_title }} - Resume Matcher{% endblock %}
+
+{% block content %}
+<a href="{% url 'history' %}" class="btn btn-outline-secondary mb-3">Back to history</a>
+
+<div class="card card-body">
+    <h2>{{ analysis.job_title }}</h2>
+    <p class="text-muted">Checked on {{ analysis.created_at|date:"d M Y, H:i" }}</p>
+
+    <h3>Match score: {{ result.score }}%</h3>
+    <div class="progress mb-3" style="height: 20px;">
+        <div class="progress-bar bg-success" style="width: {{ result.score }}%"></div>
+    </div>
+
+    <h5 class="mt-3">Matched skills</h5>
+    <p>
+        {% for word in result.matched %}
+            <span class="badge bg-success">{{ word }}</span>
+        {% empty %}
+            <span class="text-muted">None</span>
+        {% endfor %}
+    </p>
+
+    <h5 class="mt-3">Missing skills</h5>
+    <p>
+        {% for word in result.missing %}
+            <span class="badge bg-danger">{{ word }}</span>
+        {% empty %}
+            <span class="text-muted">None, great match!</span>
+        {% endfor %}
+    </p>
+
+    {% if result.suggestions %}
+    <h5 class="mt-3">How to close the gaps</h5>
+    <ul>
+        {% for s in result.suggestions %}
+            <li><strong>{{ s.skill }}</strong>: {{ s.tip }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

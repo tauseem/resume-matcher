@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Resume Matcher{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container" style="max-width: 900px;">
+        <a class="navbar-brand" href="{% url 'home' %}">Resume Matcher</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'home' %}">New check</a>
+            <a class="nav-link" href="{% url 'history' %}">History</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-4" style="max-width: 900px;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
