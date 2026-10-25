@@ -1,0 +1,5 @@
+django
+pypdf
+python-docx
+gunicorn
+whitenoise
